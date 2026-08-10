@@ -44,10 +44,10 @@ export default function Login({ onLoginSuccess, onNavigateRegister }) {
         canonicalPath="/login"
       />
 
-      <div className="flex flex-col justify-between h-full space-y-5">
+      <div className="space-y-4">
         {currentUser && (
-          <div className="p-3.5 rounded-xl bg-[#EAF2EC] border border-[#B8D4C1] text-xs text-[#1B3B2B] space-y-2">
-            <div className="flex items-center gap-2 font-bold text-sm">
+          <div className="p-3 rounded-xl bg-[#EAF2EC] border border-[#B8D4C1] text-xs text-[#1B3B2B] space-y-2">
+            <div className="flex items-center gap-2 font-bold text-xs">
               <ShieldAlert className="w-4 h-4 text-[#1B3B2B]" /> Active Session Detected
             </div>
             <p className="text-[11px] text-[#2C2824]">
@@ -72,20 +72,20 @@ export default function Login({ onLoginSuccess, onNavigateRegister }) {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="border-b border-[#E2DDD1] pb-3">
-            <h2 className="text-2xl font-serif font-bold text-[#1C1917] mb-1">Sign In to Account</h2>
+        <form onSubmit={handleSubmit} className="space-y-3.5">
+          <div className="border-b border-[#E2DDD1] pb-2">
+            <h2 className="text-xl font-serif font-bold text-[#1C1917]">Sign In to Account</h2>
             <p className="text-xs text-[#736C63]">Enter your Member ID / Admin Handle & Password</p>
           </div>
 
           {error && (
-            <div className="p-3 rounded-xl bg-[#FDF0F0] border border-[#F3C6C6] text-[#8C2525] text-xs font-semibold">
+            <div className="p-2.5 rounded-xl bg-[#FDF0F0] border border-[#F3C6C6] text-[#8C2525] text-xs font-semibold">
               {error}
             </div>
           )}
 
           <div>
-            <label className="form-label">Username / Member ID</label>
+            <label className="form-label text-xs">USERNAME / MEMBER ID</label>
             <div className="relative flex items-center">
               <User className="w-4 h-4 text-[#736C63] absolute left-3.5 pointer-events-none" />
               <input
@@ -94,13 +94,13 @@ export default function Login({ onLoginSuccess, onNavigateRegister }) {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
-                className="form-input form-input-icon"
+                className="form-input form-input-icon text-xs py-2.5"
               />
             </div>
           </div>
 
           <div>
-            <label className="form-label">Password</label>
+            <label className="form-label text-xs">PASSWORD</label>
             <div className="relative flex items-center">
               <Key className="w-4 h-4 text-[#736C63] absolute left-3.5 pointer-events-none" />
               <input
@@ -109,36 +109,28 @@ export default function Login({ onLoginSuccess, onNavigateRegister }) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="form-input form-input-icon"
+                className="form-input form-input-icon text-xs py-2.5"
               />
             </div>
           </div>
 
-          <button type="submit" disabled={loading} className="btn-primary w-full justify-center text-sm py-3 mt-1">
+          <button type="submit" disabled={loading} className="btn-primary w-full justify-center text-xs py-2.5 mt-1">
             <LogIn className="w-4 h-4" />
             {loading ? 'Authenticating...' : 'Sign In'}
           </button>
         </form>
 
-        <div className="space-y-4 pt-2">
-          <div className="p-3.5 rounded-xl bg-[#FDF8E7] border border-[#F0DFA8] text-xs text-[#554F47] space-y-1">
-            <p className="font-bold text-[#8C6200] uppercase tracking-wider text-[10px]">Seeded Quick Credentials:</p>
-            <p>• Admin: <code className="text-[#1C1917] font-mono font-bold bg-white px-1.5 py-0.5 rounded border border-[#E2DDD1]">admin</code> / <code className="text-[#1C1917] font-mono font-bold bg-white px-1.5 py-0.5 rounded border border-[#E2DDD1]">admin123</code></p>
-            <p>• Root Member: <code className="text-[#1C1917] font-mono font-bold bg-white px-1.5 py-0.5 rounded border border-[#E2DDD1]">root</code> / <code className="text-[#1C1917] font-mono font-bold bg-white px-1.5 py-0.5 rounded border border-[#E2DDD1]">root123</code></p>
-          </div>
-
-          <div className="text-center pt-3 border-t border-[#E2DDD1]">
-            <p className="text-xs text-[#736C63]">
-              Don't have an active account?{' '}
-              <button 
-                type="button"
-                onClick={onNavigateRegister}
-                className="text-[#1B3B2B] hover:underline font-bold inline-flex items-center gap-1"
-              >
-                Register with EPIN <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            </p>
-          </div>
+        <div className="text-center pt-2 border-t border-[#E2DDD1]">
+          <p className="text-xs text-[#736C63]">
+            Don't have an active account?{' '}
+            <button 
+              type="button"
+              onClick={onNavigateRegister}
+              className="text-[#1B3B2B] hover:underline font-bold inline-flex items-center gap-1"
+            >
+              Register with EPIN <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </p>
         </div>
       </div>
     </AuthLayout>

@@ -6,7 +6,7 @@ export default function SEO({
   keywords,
   canonicalPath = '',
   ogType = 'website',
-  ogImage = 'https://nms-platform.com/og-image.jpg',
+  ogImage = 'https://nms.acharyaworks.in/og-image.jpg',
 }) {
   useEffect(() => {
     // 1. Dynamic Title Tag
@@ -45,7 +45,7 @@ export default function SEO({
     updateMetaTag('meta[property="og:image"]', 'content', ogImage);
 
     // 4. Canonical URL Link Tag
-    const baseUrl = 'https://nms-platform.com';
+    const baseUrl = 'https://nms.acharyaworks.in';
     const fullCanonicalUrl = `${baseUrl}${canonicalPath.startsWith('/') ? canonicalPath : `/${canonicalPath}`}`;
     let canonicalLink = document.querySelector('link[rel="canonical"]');
     if (!canonicalLink) {

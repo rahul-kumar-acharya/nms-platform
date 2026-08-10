@@ -1,13 +1,29 @@
 import os
 from pathlib import Path
 from datetime import timedelta
+import dj_database_url
+from dotenv import load_dotenv
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-default-key-nms-2026')
-DEBUG = os.getenv('DEBUG', 'True').lower() in ('true', '1', 't')
+# Load environment variables from .env
+load_dotenv(BASE_DIR / '.env')
 
-ALLOWED_HOSTS = [host.strip() for host in os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,*').split(',')]
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.getenv('SECRET_KEY')
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
+
+ALLOWED_HOSTS = [
+    host.strip() 
+    for host in os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,api.nms.acharyaworks.in,nms.acharyaworks.in,*.onrender.com,*').split(',') 
+    if host.strip()
+]
 
 AUTH_USER_MODEL = 'accounts.User'
 
@@ -43,6 +59,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -72,11 +89,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
+# Database Configuration: Safely load DATABASE_URL (Neon PostgreSQL) or fallback to SQLite locally
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.parse(os.getenv("DATABASE_URL"))
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -117,5 +132,18 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
+# CORS & CSRF Settings for Production Subdomains & Localhost
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOWED_ORIGINS = [
+    origin.strip() 
+    for origin in os.getenv('CORS_ALLOWED_ORIGINS', 'https://nms.acharyaworks.in,https://api.nms.acharyaworks.in,http://localhost:5173,http://127.0.0.1:5173').split(',') 
+    if origin.strip()
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    origin.strip() 
+    for origin in os.getenv('CSRF_TRUSTED_ORIGINS', 'https://nms.acharyaworks.in,https://api.nms.acharyaworks.in,http://localhost:5173,http://127.0.0.1:5173').split(',') 
+    if origin.strip()
+]
