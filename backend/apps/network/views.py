@@ -12,15 +12,27 @@ class BinaryTreeView(APIView):
         member_id = request.query_params.get('member_id', None)
         depth = int(request.query_params.get('depth', 4))
 
+        root_member = None
         if member_id:
-            root_member = get_object_or_404(Member, member_id=member_id)
+            root_member = Member.objects.filter(member_id=member_id).first()
         elif hasattr(request.user, 'member_profile'):
             root_member = request.user.member_profile
-        else:
-            root_member = Member.objects.filter(is_root=True).first()
+        
+        if not root_member:
+            root_member = Member.objects.filter(is_root=True).first() or Member.objects.first()
 
         if not root_member:
-            return Response({'detail': 'No network tree found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({
+                'id': 0,
+                'member_id': 'ROOT',
+                'name': 'Company Root Node',
+                'position': 'ROOT',
+                'status': 'ACTIVE',
+                'left': None,
+                'right': None,
+                'left_count': 0,
+                'right_count': 0
+            }, status=status.HTTP_200_OK)
 
         tree_data = NetworkService.get_binary_tree_data(root_member, depth=depth)
         return Response(tree_data)
@@ -32,15 +44,22 @@ class ReferralTreeView(APIView):
         member_id = request.query_params.get('member_id', None)
         depth = int(request.query_params.get('depth', 3))
 
+        root_member = None
         if member_id:
-            root_member = get_object_or_404(Member, member_id=member_id)
+            root_member = Member.objects.filter(member_id=member_id).first()
         elif hasattr(request.user, 'member_profile'):
             root_member = request.user.member_profile
-        else:
-            root_member = Member.objects.filter(is_root=True).first()
 
         if not root_member:
-            return Response({'detail': 'No referral tree found'}, status=status.HTTP_404_NOT_FOUND)
+            root_member = Member.objects.filter(is_root=True).first() or Member.objects.first()
+
+        if not root_member:
+            return Response({
+                'id': 0,
+                'member_id': 'ROOT',
+                'name': 'Company Root Node',
+                'children': []
+            }, status=status.HTTP_200_OK)
 
         tree_data = NetworkService.get_referral_tree_data(root_member, depth=depth)
         return Response(tree_data)

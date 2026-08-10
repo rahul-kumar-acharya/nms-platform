@@ -16,8 +16,13 @@ export default function WithdrawalsPage() {
   const [success, setSuccess] = useState('');
 
   const loadData = () => {
-    walletService.getMyWallet().then(res => setBalance(res.balance));
-    withdrawalService.getWithdrawals().then(res => setWithdrawals(res.results || res || []));
+    walletService.getMyWallet()
+      .then(res => setBalance(res?.balance ?? '0'))
+      .catch(() => setBalance('0'));
+
+    withdrawalService.getWithdrawals()
+      .then(res => setWithdrawals(res.results || res || []))
+      .catch(() => setWithdrawals([]));
   };
 
   useEffect(() => {

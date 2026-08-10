@@ -54,24 +54,24 @@ export default function Home({ setView }) {
         </div>
       </section>
 
-      {/* Database Active Stats */}
+      {/* Database Active Stats - High Contrast Forest & Gold Theme */}
       <section className="max-w-7xl mx-auto px-6">
-        <div className="glass-card p-8 bg-gradient-to-r from-[#1B3B2B] via-[#132B1F] to-[#2C2824] text-white border-[#C5A059] shadow-lg">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center divide-y sm:divide-y-0 sm:divide-x divide-[#C5A059]/30">
+        <div className="p-8 rounded-2xl bg-[#1B3B2B] text-white border border-[#C5A059] shadow-xl">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center divide-y sm:divide-y-0 sm:divide-x divide-[#C5A059]/40">
             <div className="p-2">
-              <span className="text-xs font-bold text-[#C5A059] uppercase tracking-widest block">Active Members</span>
+              <span className="text-xs font-bold text-[#E6C687] uppercase tracking-widest block">Active Members</span>
               <p className="text-4xl font-serif font-extrabold text-white mt-2">{stats?.total_members || '6+'}</p>
-              <span className="text-xs text-[#D8CEBE] mt-1 block">Registered in Database</span>
+              <span className="text-xs text-[#E2DDD1] mt-1 block">Registered in Database</span>
             </div>
             <div className="p-2">
-              <span className="text-xs font-bold text-[#C5A059] uppercase tracking-widest block">Income Distributed</span>
+              <span className="text-xs font-bold text-[#E6C687] uppercase tracking-widest block">Income Distributed</span>
               <p className="text-4xl font-serif font-extrabold text-white mt-2">₹{parseFloat(stats?.total_income_distributed || 7500).toLocaleString()}</p>
-              <span className="text-xs text-[#D8CEBE] mt-1 block">Total Payouts Credited</span>
+              <span className="text-xs text-[#E2DDD1] mt-1 block">Total Payouts Credited</span>
             </div>
             <div className="p-2">
-              <span className="text-xs font-bold text-[#C5A059] uppercase tracking-widest block">Unused EPIN Keys</span>
+              <span className="text-xs font-bold text-[#E6C687] uppercase tracking-widest block">Unused EPIN Keys</span>
               <p className="text-4xl font-serif font-extrabold text-white mt-2">{stats?.unused_epins || '8'}</p>
-              <span className="text-xs text-[#D8CEBE] mt-1 block">Ready for Activation</span>
+              <span className="text-xs text-[#E2DDD1] mt-1 block">Ready for Activation</span>
             </div>
           </div>
         </div>

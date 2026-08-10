@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1B3B2B" />
+      <stop offset="100%" stop-color="#132B1F" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E6C687" />
+      <stop offset="100%" stop-color="#C5A059" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer Dark Forest Card with Gold Border -->
+  <rect x="16" y="16" width="480" height="480" rx="100" fill="url(#bgGrad)" stroke="#C5A059" stroke-width="16" />
+  
+  <!-- Binary Network Node Symbol -->
+  <!-- Top Root Node -->
+  <circle cx="256" cy="130" r="42" fill="url(#goldGrad)" />
+  
+  <!-- Branch Lines -->
+  <path d="M256 172 L160 270" stroke="#C5A059" stroke-width="18" stroke-linecap="round" />
+  <path d="M256 172 L352 270" stroke="#C5A059" stroke-width="18" stroke-linecap="round" />
+  
+  <!-- Left Child Node -->
+  <circle cx="160" cy="290" r="34" fill="url(#goldGrad)" />
+  
+  <!-- Right Child Node -->
+  <circle cx="352" cy="290" r="34" fill="url(#goldGrad)" />
+  
+  <!-- Sub Branches -->
+  <path d="M160 324 L110 395" stroke="#C5A059" stroke-width="14" stroke-linecap="round" />
+  <path d="M160 324 L210 395" stroke="#C5A059" stroke-width="14" stroke-linecap="round" />
+  <path d="M352 324 L302 395" stroke="#C5A059" stroke-width="14" stroke-linecap="round" />
+  <path d="M352 324 L402 395" stroke="#C5A059" stroke-width="14" stroke-linecap="round" />
+  
+  <!-- Bottom Tier Nodes -->
+  <circle cx="110" cy="405" r="22" fill="#E2DDD1" />
+  <circle cx="210" cy="405" r="22" fill="#E2DDD1" />
+  <circle cx="302" cy="405" r="22" fill="#E2DDD1" />
+  <circle cx="402" cy="405" r="22" fill="#E2DDD1" />
+</svg>
