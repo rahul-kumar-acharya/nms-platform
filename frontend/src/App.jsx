@@ -47,6 +47,20 @@ import ReferralTree from './components/tree/ReferralTree';
 export default function App() {
   const [currentUser, setCurrentUser] = useState(authService.getCurrentUser());
 
+  // Sync live user profile from backend on app startup
+  useEffect(() => {
+    if (localStorage.getItem('nms_token')) {
+      authService.getMe()
+        .then(user => {
+          if (user) {
+            localStorage.setItem('nms_user', JSON.stringify(user));
+            setCurrentUser(user);
+          }
+        })
+        .catch(() => {});
+    }
+  }, []);
+
   // Modal State for Member Node Inspection
   const [selectedNode, setSelectedNode] = useState(null);
 
@@ -149,7 +163,7 @@ export default function App() {
     );
   }
 
-  const isAdmin = currentUser.role === 'ADMIN';
+  const isAdmin = currentUser?.role === 'ADMIN' || currentUser?.is_superuser || currentUser?.is_staff;
 
   // Render Logged-in Dashboard Pages
   const renderDashboardContent = () => {

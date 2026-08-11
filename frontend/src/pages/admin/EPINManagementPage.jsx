@@ -164,14 +164,14 @@ export default function EPINManagementPage() {
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <h4 className="text-base sm:text-lg font-serif font-bold text-[#1C1917]">Generated Keys ({filteredEpins.length})</h4>
 
-              <div className="relative flex items-center w-full sm:w-72">
-                <Search className="w-4 h-4 text-[#736C63] absolute left-3.5 pointer-events-none" />
+              <div className="relative flex items-center w-full sm:w-80 md:w-96">
+                <Search className="w-4 h-4 text-[#736C63] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none z-10" />
                 <input
                   type="text"
                   placeholder="Search EPIN Code, Plan, Member ID..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="form-input form-input-icon text-xs py-2"
+                  className="form-input form-input-icon text-xs pl-10 pr-4 py-2.5 w-full"
                 />
               </div>
             </div>
