@@ -31,6 +31,7 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   line-height: 1.5;
+  -webkit-tap-highlight-color: transparent;
 }
 
 h1, h2, h3, h4, h5, h6, .font-serif-heading {
@@ -56,14 +57,26 @@ h1, h2, h3, h4, h5, h6, .font-serif-heading {
   background: #B8B09F;
 }
 
-/* Glass & Classic Card Components with Generous Padding */
+/* Touch Friendly Smooth Horizontal Scroll */
+.scroll-touch {
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x pan-y;
+}
+
+/* Responsive Glass & Classic Card Components */
 .glass-card {
   background: #FFFFFF;
   border: 1px solid var(--border-classic);
   border-radius: 16px;
   box-shadow: var(--shadow-classic);
-  padding: 1.75rem;
+  padding: 1.25rem;
   transition: all 0.25s ease;
+}
+
+@media (min-width: 640px) {
+  .glass-card {
+    padding: 1.75rem;
+  }
 }
 
 .glass-card-interactive {
@@ -75,22 +88,29 @@ h1, h2, h3, h4, h5, h6, .font-serif-heading {
   box-shadow: var(--shadow-elevated);
 }
 
-/* Buttons */
+/* Responsive Buttons */
 .btn-primary {
   background: linear-gradient(135deg, #1B3B2B 0%, #132B1F 100%);
   color: #F7F4EF;
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 600;
-  padding: 0.75rem 1.5rem;
+  padding: 0.65rem 1.25rem;
   border-radius: 10px;
   border: 1px solid rgba(197, 160, 89, 0.4);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.6rem;
+  gap: 0.5rem;
   transition: all 0.2s ease;
   box-shadow: 0 4px 14px rgba(27, 59, 43, 0.2);
+  touch-action: manipulation;
+}
+@media (min-width: 640px) {
+  .btn-primary {
+    padding: 0.75rem 1.5rem;
+    gap: 0.6rem;
+  }
 }
 .btn-primary:hover {
   transform: translateY(-1px);
@@ -103,15 +123,22 @@ h1, h2, h3, h4, h5, h6, .font-serif-heading {
   background: #F4F0E8;
   color: #2C2824;
   font-weight: 600;
-  padding: 0.75rem 1.5rem;
+  padding: 0.65rem 1.25rem;
   border-radius: 10px;
   border: 1px solid var(--border-classic);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.6rem;
+  gap: 0.5rem;
   transition: all 0.2s ease;
+  touch-action: manipulation;
+}
+@media (min-width: 640px) {
+  .btn-secondary {
+    padding: 0.75rem 1.5rem;
+    gap: 0.6rem;
+  }
 }
 .btn-secondary:hover {
   background: #EAE4D8;
@@ -122,16 +149,23 @@ h1, h2, h3, h4, h5, h6, .font-serif-heading {
   background: linear-gradient(135deg, #C5A059 0%, #A37B34 100%);
   color: #FFFFFF;
   font-weight: 600;
-  padding: 0.75rem 1.5rem;
+  padding: 0.65rem 1.25rem;
   border-radius: 10px;
   border: none;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.6rem;
+  gap: 0.5rem;
   transition: all 0.2s ease;
   box-shadow: 0 4px 14px rgba(163, 123, 52, 0.25);
+  touch-action: manipulation;
+}
+@media (min-width: 640px) {
+  .btn-gold {
+    padding: 0.75rem 1.5rem;
+    gap: 0.6rem;
+  }
 }
 .btn-gold:hover {
   filter: brightness(1.08);
@@ -143,9 +177,10 @@ h1, h2, h3, h4, h5, h6, .font-serif-heading {
   color: #8C2525;
   border: 1px solid #F3C6C6;
   font-weight: 600;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.85rem;
   border-radius: 8px;
   cursor: pointer;
+  touch-action: manipulation;
 }
 .btn-danger:hover {
   background: #F8DCDC;
@@ -156,9 +191,10 @@ h1, h2, h3, h4, h5, h6, .font-serif-heading {
   color: #1B3B2B;
   border: 1px solid #B8D4C1;
   font-weight: 600;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.85rem;
   border-radius: 8px;
   cursor: pointer;
+  touch-action: manipulation;
 }
 .btn-success:hover {
   background: #D9E9DD;
@@ -168,12 +204,13 @@ h1, h2, h3, h4, h5, h6, .font-serif-heading {
 .badge {
   display: inline-flex;
   align-items: center;
-  padding: 0.3rem 0.75rem;
+  padding: 0.25rem 0.65rem;
   border-radius: 9999px;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  white-space: nowrap;
 }
 .badge-active {
   background: #EAF2EC;
@@ -196,21 +233,29 @@ h1, h2, h3, h4, h5, h6, .font-serif-heading {
   border: 1px solid #D8C8AF;
 }
 
-/* Inputs & Icon Offsets */
+/* Responsive Inputs & Mobile Keyboard Zoom Prevention */
 .form-input {
   width: 100%;
   background: #FFFFFF;
   border: 1px solid var(--border-classic);
   border-radius: 10px;
-  padding: 0.75rem 1rem;
+  padding: 0.7rem 0.9rem;
   color: var(--text-headline);
   font-family: inherit;
-  font-size: 0.92rem;
+  font-size: 16px; /* 16px prevents iOS automatic zoom on focus */
   transition: all 0.2s ease;
   box-shadow: inset 0 1.5px 3px rgba(0, 0, 0, 0.02);
 }
+
+@media (min-width: 640px) {
+  .form-input {
+    font-size: 0.9rem;
+    padding: 0.75rem 1rem;
+  }
+}
+
 .form-input-icon {
-  padding-left: 2.8rem !important;
+  padding-left: 2.6rem !important;
 }
 .form-input:focus {
   outline: none;
@@ -220,69 +265,99 @@ h1, h2, h3, h4, h5, h6, .font-serif-heading {
 
 .form-label {
   display: block;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 600;
   color: #554F47;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.35rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
 
-/* Data Table */
+/* Data Table Horizontal Scroll Container */
+.custom-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 0.5rem;
+}
+
 .custom-table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
   text-align: left;
+  min-width: 650px; /* Ensures table columns don't compress unreadably on mobile */
 }
+
 .custom-table th {
-  padding: 0.9rem 1.2rem;
+  padding: 0.75rem 1rem;
   background: #F4F0E8;
   color: #554F47;
   font-weight: 700;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   border-bottom: 2px solid var(--border-classic);
+  white-space: nowrap;
 }
+
 .custom-table td {
-  padding: 1rem 1.2rem;
+  padding: 0.85rem 1rem;
   border-bottom: 1px solid #ECE7DD;
-  font-size: 0.88rem;
+  font-size: 0.84rem;
   color: #2C2824;
+  white-space: nowrap;
 }
+
 .custom-table tr:hover td {
   background: #FBF9F5;
 }
 
-/* Binary Tree Canvas Node Box */
+/* Binary Tree Responsive Nodes */
 .tree-node-box {
   background: #FFFFFF;
   border: 2px solid #C5A059;
   border-radius: 12px;
-  padding: 0.85rem 1.2rem;
-  min-width: 145px;
+  padding: 0.65rem 0.85rem;
+  min-width: 110px;
   text-align: center;
   box-shadow: var(--shadow-classic);
   cursor: pointer;
   transition: all 0.25s ease;
 }
+
+@media (min-width: 640px) {
+  .tree-node-box {
+    padding: 0.85rem 1.2rem;
+    min-width: 145px;
+  }
+}
+
 .tree-node-box:hover {
   transform: scale(1.04);
   border-color: #1B3B2B;
   box-shadow: var(--shadow-elevated);
 }
+
 .tree-empty-box {
   background: #FAF7F2;
   border: 2px dashed #D6CFB9;
   border-radius: 12px;
-  padding: 0.85rem 1.2rem;
-  min-width: 135px;
+  padding: 0.65rem 0.85rem;
+  min-width: 105px;
   text-align: center;
   color: #8C8375;
   cursor: pointer;
   transition: all 0.2s ease;
 }
+
+@media (min-width: 640px) {
+  .tree-empty-box {
+    padding: 0.85rem 1.2rem;
+    min-width: 135px;
+  }
+}
+
 .tree-empty-box:hover {
   border-color: #1B3B2B;
   color: #1B3B2B;

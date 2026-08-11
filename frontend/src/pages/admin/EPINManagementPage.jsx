@@ -131,24 +131,24 @@ export default function EPINManagementPage() {
       />
 
       {/* Top Controls Bar */}
-      <div className="glass-card p-6 flex flex-wrap items-center justify-between gap-4">
+      <div className="glass-card p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h3 className="text-xl font-serif font-bold text-[#1C1917]">EPIN Management & Generator</h3>
+          <h3 className="text-lg sm:text-xl font-serif font-bold text-[#1C1917]">EPIN Management & Generator</h3>
           <p className="text-xs text-[#736C63]">Cryptographically generated activation keys for member onboarding</p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto justify-end">
           {activeTab === 'list' ? (
             <>
-              <button onClick={exportCSV} className="btn-secondary text-xs">
+              <button onClick={exportCSV} className="btn-secondary text-xs py-2 px-3 sm:px-4">
                 <Download className="w-3.5 h-3.5" /> Export CSV
               </button>
-              <button onClick={() => setActiveTab('generate')} className="btn-gold text-xs">
+              <button onClick={() => setActiveTab('generate')} className="btn-gold text-xs py-2 px-3 sm:px-4">
                 <Plus className="w-4 h-4" /> Generate EPIN Batch
               </button>
             </>
           ) : (
-            <button onClick={() => setActiveTab('list')} className="btn-secondary text-xs">
+            <button onClick={() => setActiveTab('list')} className="btn-secondary text-xs py-2 px-3 sm:px-4">
               <ArrowLeft className="w-4 h-4" /> Back to EPIN Directory
             </button>
           )}
@@ -160,23 +160,23 @@ export default function EPINManagementPage() {
           <SkeletonTable rows={6} cols={6} />
         ) : (
           /* EPIN Directory Table Page View */
-          <div className="glass-card p-6 space-y-4">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <h4 className="text-lg font-serif font-bold text-[#1C1917]">Generated Keys ({filteredEpins.length})</h4>
+          <div className="glass-card p-5 sm:p-6 space-y-4">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <h4 className="text-base sm:text-lg font-serif font-bold text-[#1C1917]">Generated Keys ({filteredEpins.length})</h4>
 
-              <div className="relative flex items-center w-72">
+              <div className="relative flex items-center w-full sm:w-72">
                 <Search className="w-4 h-4 text-[#736C63] absolute left-3.5 pointer-events-none" />
                 <input
                   type="text"
                   placeholder="Search EPIN Code, Plan, Member ID..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="form-input form-input-icon text-xs"
+                  className="form-input form-input-icon text-xs py-2"
                 />
               </div>
             </div>
 
-            <div className="overflow-x-auto">
+            <div className="custom-table-wrapper">
               <table className="custom-table">
                 <thead>
                   <tr>
@@ -244,26 +244,26 @@ export default function EPINManagementPage() {
         )
       ) : (
         /* Dedicated Generate EPIN Batch Page View */
-        <div className="glass-card p-8 max-w-xl mx-auto space-y-6">
+        <div className="glass-card p-5 sm:p-8 max-w-xl mx-auto space-y-5">
           <div className="flex items-center gap-3 pb-4 border-b border-[#E2DDD1]">
-            <div className="w-10 h-10 rounded-xl bg-[#1B3B2B] text-[#C5A059] flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-[#1B3B2B] text-[#C5A059] flex items-center justify-center shrink-0">
               <KeyRound className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="text-xl font-serif font-bold text-[#1C1917]">Generate EPIN Batch Keys</h4>
+              <h4 className="text-lg sm:text-xl font-serif font-bold text-[#1C1917]">Generate EPIN Batch Keys</h4>
               <p className="text-xs text-[#736C63]">Cryptographically generate registration keys for membership onboarding</p>
             </div>
           </div>
 
           {success && (
-            <div className="p-4 rounded-xl bg-[#EAF2EC] border border-[#B8D4C1] text-[#1B3B2B] text-xs font-bold flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4" /> {success}
+            <div className="p-3.5 rounded-xl bg-[#EAF2EC] border border-[#B8D4C1] text-[#1B3B2B] text-xs font-bold flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 shrink-0" /> {success}
             </div>
           )}
 
           <form onSubmit={handleGenerate} className="space-y-4">
             <div>
-              <label className="form-label">Select Membership Plan Tier</label>
+              <label className="form-label text-xs">Select Membership Plan Tier</label>
               <select 
                 value={selectedPlan}
                 onChange={(e) => setSelectedPlan(e.target.value)}
@@ -276,7 +276,7 @@ export default function EPINManagementPage() {
             </div>
 
             <div>
-              <label className="form-label">Quantity to Generate (1 - 100 Keys)</label>
+              <label className="form-label text-xs">Quantity to Generate (1 - 100 Keys)</label>
               <input
                 type="number"
                 min="1"
