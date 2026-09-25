@@ -66,7 +66,8 @@ export default function Register({ onNavigateLogin }) {
       setSuccess(res);
     }).catch(err => {
       setLoading(false);
-      setError(err.response?.data?.detail || 'Registration failed. Please check inputs and try again.');
+      const errorMsg = err.response?.data?.detail || err.response?.data?.message || err.message || 'Registration failed. Please check inputs and try again.';
+      setError(errorMsg);
     });
   };
 
