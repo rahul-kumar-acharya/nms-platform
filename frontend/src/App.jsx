@@ -29,6 +29,7 @@ import WalletPage from './pages/member/WalletPage';
 import WithdrawalsPage from './pages/member/WithdrawalsPage';
 import KYCPage from './pages/member/KYCPage';
 import MyPlanPage from './pages/member/MyPlanPage';
+import MyEpinsPage from './pages/member/MyEpinsPage';
 
 // Admin Pages
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -68,7 +69,7 @@ export default function App() {
   const getInitialView = () => {
     const path = window.location.pathname.replace('/', '');
     if (!path || path === '') return 'home'; // Root URL '/' always opens Home page!
-    if (['home', 'services', 'features', 'faq', 'terms', 'privacy', 'contact', 'login', 'register', 'dashboard', 'members', 'team', 'epins', 'plans', 'my_plan', 'income_engine', 'audit', 'wallet', 'wallets', 'withdrawals', 'kyc', 'binary_tree', 'referral_tree'].includes(path)) {
+    if (['home', 'services', 'features', 'faq', 'terms', 'privacy', 'contact', 'login', 'register', 'dashboard', 'members', 'team', 'epins', 'my_epins', 'plans', 'my_plan', 'income_engine', 'audit', 'wallet', 'wallets', 'withdrawals', 'kyc', 'binary_tree', 'referral_tree'].includes(path)) {
       return path;
     }
     return currentUser ? 'dashboard' : 'home';
@@ -177,6 +178,7 @@ export default function App() {
 
     if (view === 'members' || view === 'team') return <MemberDirectory />;
     if (view === 'epins') return <EPINManagementPage />;
+    if (view === 'my_epins') return <MyEpinsPage />;
     if (view === 'plans' || view === 'my_plan') {
       return isAdmin ? <PlansPage /> : <MyPlanPage />;
     }

@@ -13,6 +13,7 @@ class EPIN(models.Model):
     plan = models.ForeignKey(Plan, on_delete=models.CASCADE, related_name='epins')
     status = models.CharField(max_length=10, choices=Status.choices, default=Status.UNUSED)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
+    assigned_to = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True, blank=True, related_name='assigned_epins')
     used_by = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True, blank=True, related_name='used_epins')
     created_at = models.DateTimeField(auto_now_add=True)
     used_at = models.DateTimeField(null=True, blank=True)
