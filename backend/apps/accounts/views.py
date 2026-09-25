@@ -53,7 +53,7 @@ class RegisterMemberView(APIView):
             return Response({'detail': 'Position must be LEFT or RIGHT'}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            epin = EPIN.objects.select_for_update().get(code=epin_code)
+            epin = EPIN.objects.get(code=epin_code)
             if epin.status != EPIN.Status.UNUSED:
                 return Response({'detail': f'EPIN is already {epin.status.lower()}'}, status=status.HTTP_400_BAD_REQUEST)
         except EPIN.DoesNotExist:
