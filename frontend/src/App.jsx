@@ -163,7 +163,7 @@ export default function App() {
     );
   }
 
-  const isAdmin = currentUser?.role === 'ADMIN' || currentUser?.is_superuser || currentUser?.is_staff;
+  const isAdmin = currentUser?.role === 'ADMIN' || currentUser?.role === 'DEVELOPER' || currentUser?.is_superuser || currentUser?.is_staff;
 
   // Render Logged-in Dashboard Pages
   const renderDashboardContent = () => {
