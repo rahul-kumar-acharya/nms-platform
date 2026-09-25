@@ -14,6 +14,8 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'email', 'first_name', 'last_name', 'mobile', 'role', 'is_staff', 'is_superuser', 'member_id', 'kyc_status', 'plan_name']
 
     def get_role(self, obj):
+        if obj.role == 'DEVELOPER':
+            return 'ADMIN'
         if obj.is_superuser or obj.is_staff or obj.role == 'ADMIN':
             return 'ADMIN'
         return obj.role
