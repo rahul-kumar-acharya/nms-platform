@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-// API Base URL connecting frontend to backend server (Local dev fallback to 8000, production to api.nms.acharyaworks.in)
+// API Base URL connecting frontend to backend server (Local dev fallback to 8585/8000, production to api.nms.acharyaworks.in)
 const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || (isLocalhost ? 'http://localhost:8000/api/v1' : 'https://api.nms.acharyaworks.in/api/v1');
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || (isLocalhost ? 'http://localhost:8585/api/v1' : 'https://api.nms.acharyaworks.in/api/v1');
 
 const api = axios.create({
   baseURL: API_BASE_URL,
