@@ -45,7 +45,7 @@ export default function MemberDashboard({ onNavigate }) {
         <div className="flex flex-wrap items-center justify-between gap-4 z-10 relative">
           <div>
             <span className="text-xs font-bold text-[#C5A059] uppercase tracking-widest">Member Portfolio</span>
-            <h2 className="text-3xl font-serif font-extrabold text-white mt-1">Welcome back, {data?.full_name || 'Member'}!</h2>
+            <h2 className="text-3xl font-serif font-extrabold !text-white text-white mt-1" style={{ color: '#FFFFFF' }}>Welcome back, {data?.full_name || 'Member'}!</h2>
             <p className="text-xs text-[#D8CEBE] mt-1">Member Identifier: <span className="text-[#C5A059] font-mono font-bold">{data?.member_id}</span></p>
           </div>
 

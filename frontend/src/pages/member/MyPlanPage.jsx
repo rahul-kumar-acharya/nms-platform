@@ -55,7 +55,7 @@ export default function MyPlanPage() {
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <span className="text-xs font-bold text-[#C5A059] uppercase tracking-widest">Active Membership</span>
-            <h2 className="text-3xl font-serif font-extrabold text-white mt-1">{memberData?.plan_name || 'Standard Plan'}</h2>
+            <h2 className="text-3xl font-serif font-extrabold !text-white text-white mt-1" style={{ color: '#FFFFFF' }}>{memberData?.plan_name || 'Standard Plan'}</h2>
             <p className="text-xs text-[#D8CEBE] mt-1">Member ID: <span className="text-[#C5A059] font-mono font-bold">{memberData?.member_id}</span></p>
           </div>
 

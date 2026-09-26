@@ -57,7 +57,7 @@ export default function WithdrawalsPage() {
       <div className="glass-card p-6 flex flex-wrap items-center justify-between gap-4 bg-gradient-to-r from-[#1B3B2B] via-[#132B1F] to-[#2C2824] text-white border-[#C5A059]">
         <div>
           <span className="text-xs font-bold text-[#C5A059] uppercase tracking-widest">Financial Treasury</span>
-          <h2 className="text-3xl font-serif font-extrabold text-white mt-1">Payout & Withdrawal Portal</h2>
+          <h2 className="text-3xl font-serif font-extrabold !text-white text-white mt-1" style={{ color: '#FFFFFF' }}>Payout & Withdrawal Portal</h2>
           <p className="text-xs text-[#D8CEBE] mt-1">Submit bank transfer requests & audit compliance status</p>
         </div>
 

@@ -59,7 +59,7 @@ export default function AdminDashboard({ onNavigate }) {
       <div className="glass-card p-6 flex flex-wrap items-center justify-between gap-4 bg-gradient-to-r from-[#5C1D24] via-[#3D1318] to-[#1C1917] text-white border-[#C5A059]">
         <div>
           <span className="text-xs font-bold text-[#C5A059] uppercase tracking-widest">Admin Control Center</span>
-          <h2 className="text-3xl font-serif font-extrabold text-white mt-1">Platform Operations & Treasury</h2>
+          <h2 className="text-3xl font-serif font-extrabold !text-white text-white mt-1" style={{ color: '#FFFFFF' }}>Platform Operations & Treasury</h2>
           <p className="text-xs text-[#E2DDD1] mt-1">Manage network integrity, EPIN keys, pair payouts & withdrawals</p>
         </div>
 

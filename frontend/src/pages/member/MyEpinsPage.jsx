@@ -158,7 +158,7 @@ export default function MyEpinsPage() {
             <KeyRound className="w-3.5 h-3.5" />
             Activation Inventory
           </div>
-          <h1 className="text-2xl font-serif font-bold text-white tracking-tight">My EPIN Keys</h1>
+          <h1 className="text-2xl font-serif font-bold !text-white text-white tracking-tight" style={{ color: '#FFFFFF' }}>My EPIN Keys</h1>
           <p className="text-xs text-[#B8D4C1] max-w-xl">
             View your active registration keys, purchase new plan activation keys directly from your wallet balance, or transfer keys to your team members.
           </p>
