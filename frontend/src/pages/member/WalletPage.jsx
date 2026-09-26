@@ -29,24 +29,24 @@ export default function WalletPage() {
   return (
     <div className="space-y-6">
       {/* Wallet Balance Header */}
-      <div className="glass-card p-6 flex flex-wrap items-center justify-between gap-4">
+      <div className="glass-card p-6 flex flex-wrap items-center justify-between gap-4 bg-gradient-to-r from-[#1B3B2B] via-[#132B1F] to-[#2C2824] text-white border-[#C5A059]">
         <div>
-          <span className="text-xs font-bold text-slate-400 uppercase">Personal Wallet Balance</span>
-          <h2 className="text-3xl font-extrabold text-white mt-1">₹{parseFloat(wallet?.balance || 0).toLocaleString()}</h2>
-          <p className="text-xs text-slate-400 mt-1">Total Lifetime Earnings: ₹{parseFloat(wallet?.total_earnings || 0).toLocaleString()}</p>
+          <span className="text-xs font-bold text-[#C5A059] uppercase tracking-widest">Personal Wallet Balance</span>
+          <h2 className="text-3xl font-serif font-extrabold !text-white text-white mt-1" style={{ color: '#FFFFFF' }}>₹{parseFloat(wallet?.balance || 0).toLocaleString()}</h2>
+          <p className="text-xs text-[#D8CEBE] mt-1">Total Lifetime Earnings: ₹{parseFloat(wallet?.total_earnings || 0).toLocaleString()}</p>
         </div>
 
-        <button onClick={loadWalletData} className="btn-secondary">
+        <button onClick={loadWalletData} className="btn-gold">
           <RefreshCw className="w-4 h-4" /> Refresh Balance
         </button>
       </div>
 
       {/* Ledger Transactions Table */}
-      <div className="glass-card p-6">
-        <h3 className="text-lg font-bold text-white mb-4">Immutable Wallet Ledger Log</h3>
+      <div className="glass-card p-6 bg-white border border-[#E7E2D9]">
+        <h3 className="text-lg font-bold text-[#1C1917] mb-4">Immutable Wallet Ledger Log</h3>
         
         {loading ? (
-          <p className="text-slate-400 text-sm py-4">Loading ledger transactions...</p>
+          <p className="text-[#736C63] text-sm py-4">Loading ledger transactions...</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="custom-table">
@@ -63,31 +63,31 @@ export default function WalletPage() {
               <tbody>
                 {transactions.length === 0 ? (
                   <tr>
-                    <td colSpan="6" className="text-center py-6 text-slate-400">No transactions recorded yet</td>
+                    <td colSpan="6" className="text-center py-6 text-[#736C63]">No transactions recorded yet</td>
                   </tr>
                 ) : (
                   transactions.map((tx) => (
                     <tr key={tx.id}>
-                      <td className="text-slate-300 text-xs font-mono">{new Date(tx.created_at).toLocaleString()}</td>
+                      <td className="text-[#554F47] text-xs font-mono">{new Date(tx.created_at).toLocaleString()}</td>
                       <td>
                         <span className="badge badge-plan">{tx.category}</span>
                       </td>
                       <td>
                         {tx.type === 'CREDIT' ? (
-                          <span className="text-emerald-400 font-bold flex items-center gap-1 text-xs">
+                          <span className="text-[#2B5E3F] font-bold flex items-center gap-1 text-xs">
                             <ArrowUpRight className="w-3.5 h-3.5" /> CREDIT
                           </span>
                         ) : (
-                          <span className="text-rose-400 font-bold flex items-center gap-1 text-xs">
+                          <span className="text-[#8C2525] font-bold flex items-center gap-1 text-xs">
                             <ArrowDownRight className="w-3.5 h-3.5" /> DEBIT
                           </span>
                         )}
                       </td>
-                      <td className={`font-bold ${tx.type === 'CREDIT' ? 'text-emerald-400' : 'text-rose-400'}`}>
+                      <td className={`font-bold ${tx.type === 'CREDIT' ? 'text-[#2B5E3F]' : 'text-[#8C2525]'}`}>
                         {tx.type === 'CREDIT' ? '+' : '-'}₹{parseFloat(tx.amount).toLocaleString()}
                       </td>
-                      <td className="font-semibold text-white">₹{parseFloat(tx.balance_after).toLocaleString()}</td>
-                      <td className="text-slate-300 text-xs max-w-xs truncate">{tx.description}</td>
+                      <td className="font-semibold text-[#1C1917]">₹{parseFloat(tx.balance_after).toLocaleString()}</td>
+                      <td className="text-[#736C63] text-xs max-w-xs truncate">{tx.description}</td>
                     </tr>
                   ))
                 )}

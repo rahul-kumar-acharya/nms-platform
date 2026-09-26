@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   LayoutDashboard, Users, GitBranch, Share2, Award, 
   Wallet, ArrowDownRight, ShieldCheck, HelpCircle, 
-  LogOut, Menu, X, Bell
+  LogOut, Menu, X, Bell, KeyRound
 } from 'lucide-react';
 import { authService } from '../services/authService';
 
@@ -22,6 +22,7 @@ export default function MemberLayout({ children, currentTab, setCurrentTab }) {
 
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { id: 'my_epins', label: 'My EPINs', icon: KeyRound },
     { id: 'team', label: 'My Team', icon: Users },
     { id: 'binary_tree', label: 'Binary Tree', icon: GitBranch },
     { id: 'referral_tree', label: 'Referral Downline', icon: Share2 },

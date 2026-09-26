@@ -36,6 +36,7 @@ class WalletTransaction(models.Model):
         WITHDRAWAL = 'WITHDRAWAL', 'Withdrawal Debit'
         WITHDRAWAL_REFUND = 'WITHDRAWAL_REFUND', 'Withdrawal Refund'
         ADJUSTMENT = 'ADJUSTMENT', 'System Adjustment'
+        EPIN_PURCHASE = 'EPIN_PURCHASE', 'EPIN Purchase'
 
     wallet = models.ForeignKey(Wallet, on_delete=models.CASCADE, related_name='transactions')
     type = models.CharField(max_length=10, choices=Type.choices)

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { authService } from '../../services/authService';
 import { epinService } from '../../services/epinService';
 import AuthLayout from '../../layouts/AuthLayout';
@@ -22,6 +22,34 @@ export default function Register({ onNavigateLogin }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(null);
+
+  // Auto-detect referral link query parameters: ?sponsor=M00001&epin=XXX&position=LEFT
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const sp = params.get('sponsor');
+    const pt = params.get('parent');
+    const ep = params.get('epin');
+    const pos = params.get('position');
+
+    if (sp) setSponsorId(sp.trim().toUpperCase());
+    if (pt) setParentId(pt.trim().toUpperCase());
+    else if (sp) setParentId(sp.trim().toUpperCase());
+    if (pos && ['LEFT', 'RIGHT'].includes(pos.toUpperCase())) setPosition(pos.toUpperCase());
+    if (ep) {
+      const code = ep.trim().toUpperCase();
+      setEpinCode(code);
+      setValidatingEpin(true);
+      epinService.validateEpin(code)
+        .then(res => {
+          setValidatingEpin(false);
+          if (res.valid) setEpinValid(res);
+        })
+        .catch(err => {
+          setValidatingEpin(false);
+          setError(err.response?.data?.message || 'Invalid or used EPIN code in referral link');
+        });
+    }
+  }, []);
 
   const handleLogout = () => {
     authService.logout();

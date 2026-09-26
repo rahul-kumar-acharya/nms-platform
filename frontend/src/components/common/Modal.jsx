@@ -12,6 +12,7 @@ export default function Modal({
   cancelText = 'Cancel',
   onConfirm,
   loading = false,
+  hideFooter = false,
 }) {
   if (!isOpen) return null;
 
@@ -70,36 +71,38 @@ export default function Modal({
           {children}
         </div>
 
-        <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center sm:justify-end gap-2.5 sm:gap-3 pt-1">
-          {onConfirm ? (
-            <>
+        {!hideFooter && (
+          <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center sm:justify-end gap-2.5 sm:gap-3 pt-1">
+            {onConfirm ? (
+              <>
+                <button 
+                  type="button" 
+                  onClick={onClose}
+                  disabled={loading}
+                  className="btn-secondary text-xs w-full sm:w-auto"
+                >
+                  {cancelText}
+                </button>
+                <button 
+                  type="button" 
+                  onClick={onConfirm}
+                  disabled={loading}
+                  className={type === 'danger' || type === 'confirm' ? 'btn-danger text-xs px-4 py-2 w-full sm:w-auto' : 'btn-gold text-xs w-full sm:w-auto'}
+                >
+                  {loading ? 'Processing...' : confirmText}
+                </button>
+              </>
+            ) : (
               <button 
                 type="button" 
                 onClick={onClose}
-                disabled={loading}
-                className="btn-secondary text-xs w-full sm:w-auto"
+                className="btn-primary text-xs w-full sm:w-auto"
               >
-                {cancelText}
+                OK, Understood
               </button>
-              <button 
-                type="button" 
-                onClick={onConfirm}
-                disabled={loading}
-                className={type === 'danger' || type === 'confirm' ? 'btn-danger text-xs px-4 py-2 w-full sm:w-auto' : 'btn-gold text-xs w-full sm:w-auto'}
-              >
-                {loading ? 'Processing...' : confirmText}
-              </button>
-            </>
-          ) : (
-            <button 
-              type="button" 
-              onClick={onClose}
-              className="btn-primary text-xs w-full sm:w-auto"
-            >
-              OK, Understood
-            </button>
-          )}
-        </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
