@@ -17,8 +17,18 @@ User = get_user_model()
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
+        username_val = attrs.get(self.username_field, "").strip()
+        if username_val:
+            member = Member.objects.filter(member_id__iexact=username_val).select_related("user").first()
+            if member and member.user:
+                attrs[self.username_field] = member.user.username
+            else:
+                user = User.objects.filter(email__iexact=username_val).first()
+                if user:
+                    attrs[self.username_field] = user.username
+
         data = super().validate(attrs)
-        data['user'] = UserSerializer(self.user).data
+        data["user"] = UserSerializer(self.user).data
         return data
 
 class CustomTokenObtainPairView(TokenObtainPairView):
@@ -36,54 +46,54 @@ class RegisterMemberView(APIView):
 
     def post(self, request):
         data = request.data
-        username = data.get('username', '').strip()
-        email = data.get('email', '').strip()
-        password = data.get('password', '')
-        full_name = data.get('full_name', '').strip()
-        mobile = data.get('mobile', '').strip()
-        epin_code = data.get('epin_code', '').strip().upper()
-        sponsor_id = data.get('sponsor_id', '').strip()
-        parent_id = data.get('parent_id', '').strip()
-        position = data.get('position', '').strip().upper()
+        username = data.get("username", "").strip()
+        email = data.get("email", "").strip()
+        password = data.get("password", "")
+        full_name = data.get("full_name", "").strip()
+        mobile = data.get("mobile", "").strip()
+        epin_code = data.get("epin_code", "").strip().upper()
+        sponsor_id = data.get("sponsor_id", "").strip()
+        parent_id = data.get("parent_id", "").strip()
+        position = data.get("position", "").strip().upper()
 
         if not (full_name and email and password and epin_code and sponsor_id and parent_id and position):
-            return Response({'detail': 'All fields are required including EPIN, Sponsor ID, Parent ID, and Position'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"detail": "All fields are required including EPIN, Sponsor ID, Parent ID, and Position"}, status=status.HTTP_400_BAD_REQUEST)
 
-        if position not in ['LEFT', 'RIGHT']:
-            return Response({'detail': 'Position must be LEFT or RIGHT'}, status=status.HTTP_400_BAD_REQUEST)
+        if position not in ["LEFT", "RIGHT"]:
+            return Response({"detail": "Position must be LEFT or RIGHT"}, status=status.HTTP_400_BAD_REQUEST)
 
         if User.objects.filter(email__iexact=email).exists():
-            return Response({'detail': f'An account with email "{email}" already exists. Please log in instead.'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"detail": f"An account with email \"{email}\" already exists. Please log in instead."}, status=status.HTTP_400_BAD_REQUEST)
 
         if username and User.objects.filter(username__iexact=username).exists():
-            return Response({'detail': f'Username "{username}" is already taken. Please choose another.'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"detail": f"Username \"{username}\" is already taken. Please choose another."}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             sponsor = Member.objects.get(member_id=sponsor_id)
         except Member.DoesNotExist:
-            return Response({'detail': f'Sponsor member ID "{sponsor_id}" not found'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"detail": f"Sponsor member ID \"{sponsor_id}\" not found"}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             parent = Member.objects.get(member_id=parent_id)
         except Member.DoesNotExist:
-            return Response({'detail': f'Parent member ID "{parent_id}" not found'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"detail": f"Parent member ID \"{parent_id}\" not found"}, status=status.HTTP_400_BAD_REQUEST)
 
         # Check if parent position is already occupied
         existing_child = parent.binary_children.filter(position=position).first()
         if existing_child:
-            return Response({'detail': f'Parent node "{parent_id}" already has a member placed on the {position} position ({existing_child.full_name})'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"detail": f"Parent node \"{parent_id}\" already has a member placed on the {position} position ({existing_child.full_name})"}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             with transaction.atomic():
                 try:
                     epin = EPIN.objects.select_for_update().get(code=epin_code)
                     if epin.status != EPIN.Status.UNUSED:
-                        return Response({'detail': f'EPIN is already {epin.status.lower()}'}, status=status.HTTP_400_BAD_REQUEST)
+                        return Response({"detail": f"EPIN is already {epin.status.lower()}"}, status=status.HTTP_400_BAD_REQUEST)
                 except EPIN.DoesNotExist:
-                    return Response({'detail': 'Invalid EPIN code'}, status=status.HTTP_400_BAD_REQUEST)
+                    return Response({"detail": "Invalid EPIN code"}, status=status.HTTP_400_BAD_REQUEST)
 
                 # Collision-proof sequential Member ID generation
-                last_member = Member.objects.order_by('-id').first()
+                last_member = Member.objects.order_by("-id").first()
                 seq = (last_member.id + 1) if last_member else 1
                 member_id = generate_member_id(seq)
                 while Member.objects.filter(member_id=member_id).exists() or User.objects.filter(username=member_id).exists():
@@ -96,7 +106,7 @@ class RegisterMemberView(APIView):
                     email=email,
                     password=password,
                     first_name=full_name.split()[0],
-                    last_name=' '.join(full_name.split()[1:]) if len(full_name.split()) > 1 else '',
+                    last_name=" ".join(full_name.split()[1:]) if len(full_name.split()) > 1 else "",
                     role=User.Role.MEMBER,
                     mobile=mobile
                 )
@@ -127,19 +137,19 @@ class RegisterMemberView(APIView):
                 IncomeEngine.process_referral_income(member)
 
             return Response({
-                'status': 'SUCCESS',
-                'message': 'Member registered and activated successfully',
-                'member': {
-                    'member_id': member.member_id,
-                    'full_name': member.full_name,
-                    'plan_name': member.current_plan.name,
-                    'sponsor_id': sponsor.member_id,
-                    'parent_id': parent.member_id,
-                    'position': member.position
+                "status": "SUCCESS",
+                "message": "Member registered and activated successfully",
+                "member": {
+                    "member_id": member.member_id,
+                    "full_name": member.full_name,
+                    "plan_name": member.current_plan.name,
+                    "sponsor_id": sponsor.member_id,
+                    "parent_id": parent.member_id,
+                    "position": member.position
                 }
             }, status=status.HTTP_201_CREATED)
 
         except IntegrityError as e:
-            return Response({'detail': f'Database constraint violation during registration: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"detail": f"Database constraint violation during registration: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-            return Response({'detail': f'Registration failed: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"detail": f"Registration failed: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

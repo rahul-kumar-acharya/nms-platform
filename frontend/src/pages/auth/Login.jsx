@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { authService } from '../../services/authService';
 import AuthLayout from '../../layouts/AuthLayout';
 import SEO from '../../components/common/SEO';
-import { LogIn, Key, User, ArrowRight, ShieldAlert, LogOut } from 'lucide-react';
+import { LogIn, Key, User, ArrowRight, ShieldAlert, LogOut, Eye, EyeOff } from 'lucide-react';
 
 export default function Login({ onLoginSuccess, onNavigateRegister }) {
   const currentUser = authService.getCurrentUser();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -64,8 +65,7 @@ export default function Login({ onLoginSuccess, onNavigateRegister }) {
               <button 
                 type="button" 
                 onClick={handleLogout}
-                className="btn-secondary text-[11px] py-1.5 px-3 text-[#8C2525]"
-              >
+                className="btn-secondary text-[11px] py-1.5 px-3 text-[#8C2525]">
                 <LogOut className="w-3 h-3 text-[#8C2525]" /> Sign Out to Switch
               </button>
             </div>
@@ -82,10 +82,10 @@ export default function Login({ onLoginSuccess, onNavigateRegister }) {
             <div className="p-2.5 rounded-xl bg-[#FDF0F0] border border-[#F3C6C6] text-[#8C2525] text-xs font-semibold">
               {error}
             </div>
-          )}
+         )}
 
           <div>
-            <label className="form-label text-xs">USERNAME / MEMBER ID</label>
+            <label className="form-label text-xs">USERNAME / MEMBER  ID</label>
             <div className="relative flex items-center">
               <User className="w-4 h-4 text-[#736C63] absolute left-3.5 pointer-events-none" />
               <input
@@ -104,19 +104,27 @@ export default function Login({ onLoginSuccess, onNavigateRegister }) {
             <div className="relative flex items-center">
               <Key className="w-4 h-4 text-[#736C63] absolute left-3.5 pointer-events-none" />
               <input
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="form-input form-input-icon text-xs py-2.5"
+                className="form-input form-input-icon text-xs py-2.5 pr-10"
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3.5 text-[#736C63] hover:text-[#1C1917] focus:outline-none transition-colors"
+                title={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
             </div>
           </div>
 
           <button type="submit" disabled={loading} className="btn-primary w-full justify-center text-xs py-2.5 mt-1">
             <LogIn className="w-4 h-4" />
-            {loading ? 'Authenticating...' : 'Sign In'}
+            {loading? 'Authenticating...' : 'Sign In'}
           </button>
         </form>
 
